@@ -1,0 +1,78 @@
+/* Information that guests should see without discovering a hidden tab. */
+:root { --blue: #668c94; }
+.button-primary { background: #926c38; border-color: #926c38; }
+.button-primary:hover { background: #7d592c; }
+.detail-tabs { width: min(430px, 100%); border: 1px solid var(--line); border-radius: 30px; padding: 4px; background: #fffdf76b; }
+.detail-tabs button { min-height: 44px; padding: 10px 16px; border-radius: 25px; font-size: 12px; color: #75634f; }
+.detail-tabs button[aria-selected=true] { background: #eee0da; color: #8b435a; }
+.detail-tabs button[aria-selected=true]::after { display: none; }
+.detail-content { min-height: 0; }
+.timeline p { font-size: 11px; color: #75634f; }
+.dress-preview { max-width: 510px; margin: 16px auto 0; padding: 15px 17px; border: 1px solid #c9b28b85; background: #fffdf7; display: flex; justify-content: space-between; gap: 14px; align-items: center; border-radius: 3px; }
+.dress-preview-title { display: flex; align-items: center; gap: 7px; font: 25px 'Cormorant Garamond', serif; color: #8b435a; }
+.dress-preview p { margin-top: 5px; max-width: 220px; font-size: 11px; line-height: 1.5; }
+.dress-preview button { display: flex; flex-direction: column; gap: 8px; align-items: flex-start; min-height: 44px; border: 0; padding: 5px 0; color: #805d35; background: transparent; }
+.dress-preview button>span:last-child { display: flex; align-items: center; gap: 6px; font-size: 11px; border-bottom: 1px solid #b69a75; padding-bottom: 3px; }
+.preview-swatches { display: flex; gap: 4px; }
+.preview-swatches i { width: 13px; height: 13px; border-radius: 50%; }
+.dress-panel { margin-top: 0; }
+.dress-panel>.eyebrow, .dress-avoid .eyebrow { font-size: 10px; color: #7e6136; }
+.colors { gap: 8px; }
+.colors button { width: 44px; height: 44px; }
+.colors button[aria-pressed=true] { color: #342d26; box-shadow: 0 0 0 2px var(--ink); }
+.dress-panel p.color-name { font-size: 12px; line-height: 1.5; min-height: 18px; }
+.invitation-ending { display: grid; justify-items: center; gap: 5px; margin-top: 20px; text-align: center; }
+.invitation-ending .replay { position: static; transform: none; min-height: 44px; font-size: 12px; margin: 0; padding: 10px 17px; border: 1px solid var(--line); border-radius: 25px; background: #fffdf7; }
+.invitation-ending p { max-width: 310px; font-size: 10px; line-height: 1.5; color: #7a644c; }
+.ready-to-close-end .invitation-ending .replay { background: #f1e2df; border-color: var(--rose); }
+.rsvp-form>label, .rsvp-form legend { font-size: 12px; }
+.choice { font-size: 11px; line-height: 1.4; }
+.form-footnote { font-size: 11px; color: #75634f; }
+.site-header nav button { font-size: 11px; }
+.chapter-arrows button { width: 44px; height: 44px; }
+.chapter-dots button { width: 32px; height: 44px; }
+@media (max-width: 700px) {
+  .dress-preview { padding: 12px 13px; gap: 10px; }
+  .dress-preview-title { font-size: 22px; }
+  .dress-preview p { font-size: 10px; }
+  .dress-preview button>span:last-child { font-size: 10px; }
+  .preview-swatches { gap: 3px; }
+  .preview-swatches i { width: 12px; height: 12px; }
+  .chapter-nav { gap: 7px; padding-inline: 13px; }
+  .chapter-dots button { width: 27px; }
+  .site-header nav button { font-size: 10px; padding-inline: 8px; }
+  .details .section-intro { margin-bottom: 13px; }
+  .details .section-intro h2 { font-size: 38px; }
+  .details .section-intro .ornament { margin-top: 9px; }
+  .detail-tabs { margin-bottom: 12px; }
+  .timeline-row { min-height: 51px; }
+  .timeline h3 { font-size: 20px; }
+  .event-illustration { transform: scale(.8); }
+  .rsvp { align-content: center; }
+  .invitation-ending { margin-top: 14px; }
+}
+@media (max-width: 360px) {
+  .dress-preview { flex-direction: column; align-items: flex-start; gap: 7px; }
+  .dress-preview p { max-width: none; }
+  .dress-preview button { flex-direction: row; align-items: center; width: 100%; justify-content: space-between; }
+  .colors { gap: 3px; }
+  .chapter-nav { padding-inline: 9px; gap: 4px; }
+  .chapter-dots button { width: 25px; }
+}
+@media (max-width: 700px) and (max-height: 740px) {
+  .details .section-intro h2 { font-size: 32px; }
+  .details .section-intro .ornament { display: none; }
+  .details .section-intro { margin-bottom: 11px; }
+  .details .timeline-row { min-height: 44px; }
+  .details .event-illustration { margin-block: -5px; }
+  .dress-preview { margin-top: 8px; padding-block: 10px; }
+  .rsvp-note h2 { font-size: 35px; }
+  .rsvp-note .ornament { display: none; }
+  .rsvp-note p { max-width: 330px; margin-top: 12px; }
+  .rsvp { padding-top: 70px; padding-bottom: 75px; }
+  .rsvp-form { padding: 12px; gap: 6px; }
+  .rsvp-form>input, .rsvp-form>select { margin-bottom: 0; }
+  .rsvp-form legend { margin-bottom: 6px; }
+  .form-footnote { font-size: 10px; line-height: 1.4; }
+  .invitation-ending { margin-top: 8px; }
+}

@@ -13,7 +13,9 @@ export const INVITACION = {
   whatsappNumero: '',
   vestimenta: 'Formal primaveral',
   evitarColores: ['Blanco', 'Verde turquesa oscuro'],
-  musicaUrl: '/assets/musica-instrumental.mp3', // Se puede reemplazar con otra pista MP3.
+  // Guarda la nueva canción en public/assets/ y escribe su ruta aquí.
+  // Ejemplo: public/assets/nuestra-cancion.mp3 → '/assets/nuestra-cancion.mp3'.
+  musicaUrl: '/assets/musica-instrumental.mp3',
   cronograma: [
     { hora: '16:30', titulo: 'Cóctel de bienvenida', icono: 'coctel', detalle: 'Comenzamos la celebración' },
     { hora: '17:00', titulo: 'Ceremonia civil', icono: 'ceremonia', detalle: 'El gran sí' },

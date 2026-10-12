@@ -1,0 +1,311 @@
+/* Printed stationery: a bounded piece of paper, with all decoration attached. */
+.opening {
+  display: grid;
+  place-items: center;
+  background: transparent;
+  transition: none;
+}
+.opening.is-open { visibility: hidden; pointer-events: none; }
+.opening-backdrop {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 40%, #f6f0e6, #e5dccd);
+}
+.paper-invitation, .cover-paper {
+  container-type: size;
+  position: relative;
+  isolation: isolate;
+  width: min(580px, calc(100vw - 48px));
+  height: min(760px, calc(100svh - 40px));
+  overflow: hidden;
+  border: 1px solid #cabb9f;
+  border-radius: 2px;
+  box-shadow: 0 22px 65px #59452c24, 0 2px 5px #59452c12;
+}
+.paper-invitation::after, .cover-paper::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 8;
+  pointer-events: none;
+  opacity: .045;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Cpath fill='%23736345' filter='url(%23grain)' d='M0 0h180v180H0z'/%3E%3C/svg%3E");
+}
+/* Both panels crop the same full print, so its flowers meet at the seam. */
+.paper-invitation .opening-door {
+  background: linear-gradient(100deg, #f7f1e6, #fffdf5 62%, #f8f1e7);
+  width: 50.02%;
+}
+.paper-invitation .left-door {
+  box-shadow: inset -1px 0 #ad977855, inset -11px 0 22px #6f573514;
+}
+.paper-invitation .right-door {
+  box-shadow: inset 1px 0 #fffdf9, inset 8px 0 19px #6f57350b;
+}
+.door-print { position: absolute; inset-block: 0; width: 200%; }
+.left-door .door-print { left: 0; }
+.right-door .door-print { right: 0; }
+.door-print .door-rule {
+  inset: 14px;
+  border: 1px solid #bfa57775;
+  z-index: 3;
+}
+.paper-invitation .door-wreath {
+  top: 42%;
+  left: 50%;
+  right: auto;
+  width: min(60cqh, 108cqw);
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+.paper-invitation .door-letter {
+  top: 42%;
+  font-size: clamp(84px, 20cqw, 118px);
+  z-index: 4;
+  color: #b18c53;
+  text-shadow: 0 1px #fffdf7;
+}
+.paper-invitation .left-door .door-letter { right: 30px; }
+.paper-invitation .right-door .door-letter { left: 30px; }
+.paper-invitation .opening-top {
+  top: 6%;
+  padding: 0 22px;
+  z-index: 5;
+  gap: 5px;
+}
+.paper-invitation .opening-top .eyebrow { font-size: 9px; }
+.paper-invitation .opening-names { font-size: 28px; }
+.paper-invitation .opening-seal {
+  top: 42%;
+  width: 49px;
+  height: 49px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border-radius: 50%;
+  border: 1px solid #c6997088;
+  background: radial-gradient(circle at 35% 30%, #f7e2d9, #e7c4b9 75%);
+  color: #9d6871;
+  box-shadow: inset 0 0 0 4px #fff5ec55, 1px 3px 5px #73533d25;
+  font: italic 31px/1 'Cormorant Garamond', serif;
+  z-index: 6;
+}
+.opening-seal:hover { filter: brightness(1.03); }
+.paper-invitation .opening-bottom {
+  bottom: 7%;
+  padding: 0 28px;
+  z-index: 5;
+  gap: 17px;
+}
+.paper-invitation .opening-bottom p { font-size: 25px; }
+.paper-invitation .opening-bottom .button-primary { border-radius: 30px; }
+.paper-invitation .opening-date { font: 18px 'Cormorant Garamond', serif; letter-spacing: .16em; }
+/* Three visual layers: soft foliage, the main wreath, and corner flowers. */
+.floral-layers { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+.floral-foliage {
+  position: absolute;
+  max-width: none;
+  width: 146%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-13deg);
+  opacity: .075;
+  filter: saturate(.5);
+}
+.floral-corner {
+  position: absolute;
+  width: 43%;
+  height: 27%;
+  background: url('/assets/corona-floral-v2.png') no-repeat;
+  background-size: 295% auto;
+  opacity: .78;
+}
+.floral-corner.top-left {
+  top: -5px; left: -9px;
+  background-position: 3% 22%;
+  mask-image: linear-gradient(135deg, #000 40%, transparent 88%);
+}
+.floral-corner.top-right {
+  top: -5px; right: -9px;
+  background-position: 95% 17%;
+  mask-image: linear-gradient(225deg, #000 40%, transparent 88%);
+}
+.floral-corner.bottom-left {
+  bottom: -5px; left: -9px;
+  background-position: 4% 78%;
+  mask-image: linear-gradient(45deg, #000 40%, transparent 88%);
+}
+.floral-corner.bottom-right {
+  bottom: -5px; right: -9px;
+  background-position: 98% 74%;
+  mask-image: linear-gradient(315deg, #000 40%, transparent 88%);
+}
+/* The inner page is the same stationery, sized around mobile reading. */
+.hero {
+  background: radial-gradient(ellipse at center, #f4eee3, #e9e0d2);
+  padding: 82px 22px 96px;
+}
+.hero::before { display: none; }
+.cover-paper {
+  width: min(580px, 100%);
+  height: min(760px, calc(100svh - 180px));
+  background: linear-gradient(115deg, #fcf7ed, #fffdf5 50%, #f8f1e5);
+  transform: translateY(var(--pull-offset, 0px));
+  transition: transform .15s ease-out;
+}
+.cover-paper::before {
+  content: '';
+  position: absolute;
+  inset: 13px;
+  border: 1px solid #bfa57770;
+  z-index: 2;
+  pointer-events: none;
+}
+.cover-paper .hero-wreath {
+  width: min(66cqh, 112cqw);
+  top: 47%;
+  z-index: 1;
+}
+.cover-paper .hero-content {
+  z-index: 3;
+  transform: none;
+  width: 100%;
+  padding: 0;
+}
+.cover-paper .hero-heading { top: 5%; }
+.cover-paper .hero-heading .eyebrow { font-size: 8px; letter-spacing: .13em; }
+.cover-paper .hero-heading .script { font-size: 31px; margin-top: 4px; }
+.cover-paper .hero-center { top: 46%; max-width: 340px; }
+.cover-paper h1 { font-size: clamp(48px, 12cqw, 72px); }
+.cover-paper .hero-note {
+  font-size: 17px;
+  margin: 15px auto 0;
+  max-width: 230px;
+  background: none;
+}
+.cover-paper .hero-footer { bottom: 11%; }
+.cover-paper .hero-date { font-size: 24px; }
+.cover-paper .hero-place { font-size: 18px; margin-top: 7px; }
+.cover-paper .discover { bottom: 3%; z-index: 4; font-size: 8px; }
+.cover-close {
+  position: absolute;
+  top: 18px;
+  right: 20px;
+  z-index: 5;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  border: 0;
+  border-radius: 30px;
+  background: #fffdf5b8;
+  font-size: 8px;
+  color: #886e4c;
+}
+.cover-close span { display: none; }
+.close-hint {
+  position: absolute;
+  bottom: 78px;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  color: #876e4e;
+  font-size: 8px;
+  letter-spacing: .03em;
+  pointer-events: none;
+}
+.touch-hint { display: none; }
+.ready-to-close .close-hint { color: var(--rose); font-weight: 600; }
+@media (pointer: coarse) {
+  .touch-hint { display: inline; }
+  .mouse-hint { display: none; }
+  .close-hint svg { transform: rotate(180deg); }
+}
+@media (max-width: 700px) {
+  .paper-invitation { width: calc(100vw - 20px); height: calc(100svh - 22px); }
+  .paper-invitation .door-rule { inset: 11px; }
+  .paper-invitation .door-letter { font-size: clamp(84px, 24cqw, 106px); }
+  .paper-invitation .left-door .door-letter { right: 25px; }
+  .paper-invitation .right-door .door-letter { left: 25px; }
+  .paper-invitation .opening-names { font-size: 27px; }
+  .paper-invitation .opening-top { top: 6.5%; }
+  .paper-invitation .opening-bottom { bottom: 6%; gap: 15px; }
+  .paper-invitation .opening-bottom p { font-size: 23px; }
+  .paper-invitation .opening-seal { width: 44px; height: 44px; font-size: 29px; }
+  .hero { padding: 74px 10px 96px; }
+  .cover-paper { height: calc(100svh - 172px); width: 100%; }
+  .cover-paper h1 { font-size: clamp(46px, 13cqw, 59px); }
+  .cover-paper .hero-heading { top: 6%; }
+  .cover-paper .hero-heading .eyebrow { font-size: 7px; }
+  .cover-paper .hero-heading .script { font-size: 29px; }
+  .cover-paper .hero-center { max-width: 255px; }
+  .cover-paper .hero-note { font-size: 16px; max-width: 210px; margin-top: 13px; }
+  .cover-paper .hero-date { font-size: 23px; }
+  .cover-paper .hero-place { font-size: 17px; }
+  .cover-close { top: 12px; right: 11px; }
+  .close-hint { bottom: 76px; font-size: 7px; }
+  .floral-corner { width: 44%; opacity: .67; }
+}
+@media (max-height: 740px) and (max-width: 700px) {
+  .cover-paper .hero-heading { top: 5%; }
+  .cover-paper .hero-heading .script { font-size: 25px; }
+  .cover-paper h1 { font-size: clamp(43px, 12.5cqw, 52px); }
+  .cover-paper .hero-note { font-size: 15px; margin-top: 12px; }
+  .cover-paper .hero-date { font-size: 21px; }
+  .cover-paper .hero-place { font-size: 16px; margin-top: 5px; }
+  .paper-invitation .opening-bottom { bottom: 5.5%; gap: 12px; }
+  .paper-invitation .opening-bottom p { font-size: 22px; }
+  .paper-invitation .opening-names { font-size: 25px; }
+}
+@media (max-height: 560px) {
+  .hero { min-height: 620px; }
+  .cover-paper { height: 440px; }
+  .paper-invitation { height: calc(100svh - 18px); }
+  .paper-invitation .door-wreath { width: min(58cqh, 90cqw); top: 42%; }
+  .paper-invitation .door-letter, .paper-invitation .opening-seal { top: 42%; }
+  .paper-invitation .opening-bottom p { display: none; }
+  .paper-invitation .opening-top { top: 5%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cover-paper { transition: none; }
+}
+/* Fade bouquets toward the paper, including every inner crop edge. */
+.floral-foliage { opacity: .055; }
+.floral-corner {
+  width: 36%;
+  height: 24%;
+  mask-image: radial-gradient(ellipse farthest-side at var(--corner-x) var(--corner-y), #000 20%, #000b 48%, transparent 100%);
+}
+.floral-corner.top-left { --corner-x: 0%; --corner-y: 0%; }
+.floral-corner.top-right { --corner-x: 100%; --corner-y: 0%; }
+.floral-corner.bottom-left { --corner-x: 0%; --corner-y: 100%; }
+.floral-corner.bottom-right { --corner-x: 100%; --corner-y: 100%; }
+.floral-corner.top-left, .floral-corner.top-right, .floral-corner.bottom-left, .floral-corner.bottom-right {
+  mask-image: radial-gradient(ellipse farthest-side at var(--corner-x) var(--corner-y), #000 20%, #000b 48%, transparent 100%);
+}
+@media (max-width: 700px) { .floral-corner { width: 38%; } }
+
+/* Independent cut-paper layers move before the printed flaps. */
+.opening-florals, .opening-floral-layer { position: absolute; inset: 0; pointer-events: none; }
+.opening-florals { z-index: 2; }
+.floral-half { position: absolute; inset-block: 0; width: 50%; overflow: hidden; will-change: transform; }
+.floral-half-left { left: 0; }
+.floral-half-right { right: 0; }
+.floral-half-print { position: absolute; inset-block: 0; width: 200%; }
+.floral-half-left .floral-half-print { left: 0; }
+.floral-half-right .floral-half-print { right: 0; }
+.layer-bouquets { z-index: 3; }
+.layer-wreath { z-index: 2; }
+.layer-foliage { z-index: 1; }
+.cover-paper .hero-note { background: radial-gradient(ellipse, #fffdf5 48%, #fffdf5cc 65%, transparent 85%); }
+.cover-close { min-width: 44px; min-height: 44px; justify-content: center; }
+.cover-paper .discover { min-height: 44px; font-size: 10px; }
+.close-hint { font-size: 10px; }
+@media (max-width: 700px) {
+  .close-hint { font-size: 9px; }
+  .cover-paper .discover { bottom: 1%; }
+}
