@@ -1,0 +1,38 @@
+.story-layout, .details-inner, .celebration-inner { max-width: 100%; min-width: 0; }
+.story-note { min-width: 0; }
+.site-header nav button.quick-gift { border: 1px solid var(--line); border-radius: 30px; background: #fbf8f1dd; }
+.gifts { background: radial-gradient(ellipse at center, #f4eee3, #e9e0d2); align-content: center; gap: 0; text-align: center; }
+.gift-stationery { position: relative; isolation: isolate; width: min(570px, 100%); padding: 36px 45px 30px; background: #fffdf5; border: 1px solid #cabb9f; box-shadow: 0 15px 45px #59452c17; }
+.gift-stationery::before { content: ''; position: absolute; inset: 12px; border: 1px solid #c9b28b66; pointer-events: none; }
+.gift-stationery>*:not(.floral-layers) { position: relative; z-index: 2; }
+.gift-stationery .floral-corner { opacity: .32; width: 30%; }
+.gift-stationery .floral-foliage { opacity: .035; }
+.gift-envelope { display: grid; place-items: center; color: #ae8952; width: 72px; height: 58px; margin: 18px auto 10px; }
+.gift-seal { position: absolute; top: 24px; left: 50%; transform: translateX(-50%); width: 31px; height: 31px; display: grid; place-items: center; border-radius: 50%; border: 1px solid #d0aaa3; background: #f0dcd3; color: #96586d; font: italic 12px 'Cormorant Garamond', serif; }
+.gift-stationery h2 { font-size: clamp(40px, 5vw, 58px); }
+.gift-stationery .ornament { margin: 14px 0; }
+.gift-presence { max-width: 350px; margin: auto; font: 24px/1.2 'Cormorant Garamond', serif; color: #8b435a; }
+.gift-message { margin: 17px auto 0; max-width: 390px; font-size: 14px; line-height: 1.8; }
+.gift-thanks { margin: 17px auto 13px; font: italic 21px/1.25 'Cormorant Garamond', serif; max-width: 350px; }
+.gift-stationery .signature { font-size: 31px; }
+.gifts .invitation-ending { margin-top: 17px; }
+@media (max-width: 700px) {
+  .gifts { padding: 77px 16px 85px; }
+  .gift-stationery { padding: 28px 26px 25px; }
+  .gift-presence { font-size: 22px; }
+  .gift-message { font-size: 13px; line-height: 1.7; }
+  .gift-thanks { font-size: 19px; }
+  .gift-stationery .signature { font-size: 28px; }
+}
+@media (max-width: 700px) and (max-height: 740px) {
+  .gifts { padding-top: 70px; padding-bottom: 79px; }
+  .gift-stationery { padding: 21px 25px; }
+  .gift-envelope { margin-top: 10px; margin-bottom: 8px; height: 46px; }
+  .gift-stationery h2 { font-size: 37px; }
+  .gift-stationery .ornament { margin: 10px 0; }
+  .gift-presence { font-size: 21px; }
+  .gift-message { margin-top: 12px; font-size: 12px; line-height: 1.65; }
+  .gift-thanks { margin-top: 12px; margin-bottom: 9px; font-size: 18px; }
+  .gift-stationery .signature { font-size: 26px; }
+  .gifts .invitation-ending { margin-top: 12px; }
+}

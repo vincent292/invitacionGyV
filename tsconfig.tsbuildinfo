@@ -1,1 +1,1 @@
-{"root":["./src/app.tsx","./src/config.ts","./src/cover-gesture.ts","./src/main.tsx"],"version":"5.9.3"}
+{"root":["./src/app.tsx","./src/photoalbum.tsx","./src/photobackdrop.tsx","./src/config.ts","./src/cover-gesture.ts","./src/main.tsx","./src/photos.ts"],"version":"5.9.3"}

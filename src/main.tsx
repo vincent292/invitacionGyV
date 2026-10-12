@@ -4,6 +4,8 @@ import App from './App';
 import './styles.css';
 import './cover.css';
 import './details.css';
+import './gifts.css';
+import './photos.css';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>

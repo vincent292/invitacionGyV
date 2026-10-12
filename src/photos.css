@@ -1,0 +1,87 @@
+/* One continuous photographic backdrop, revealed from the second sheet. */
+.experience { position: relative; isolation: isolate; }
+.chapters { z-index: 1; }
+.chapter:not(.hero) { background: transparent; }
+.photo-backdrop { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; opacity: 0; transition: opacity .4s ease; background: #f7f2e9; }
+.photo-backdrop[data-visible=true] { opacity: 1; }
+.photo-diagonals { position: absolute; inset: -30% -12%; display: flex; justify-content: center; gap: 20px; transform: rotate(-13deg); opacity: .16; filter: saturate(.65); }
+.photo-column { width: clamp(135px, 19vw, 280px); flex: none; }
+.photo-column-track { animation: memories-up 46s linear infinite; }
+.photo-column-group { display: grid; gap: 18px; padding-bottom: 18px; }
+.photo-column img { width: 100%; aspect-ratio: 3/4; object-fit: cover; border: 8px solid #fffdf5; box-shadow: 0 2px 10px #66543a15; }
+.photo-column.going-down .photo-column-track { animation-name: memories-down; animation-duration: 52s; }
+.photo-column.column-2 .photo-column-track { animation-duration: 43s; }
+.photo-column.column-4 .photo-column-track { animation-duration: 57s; }
+.photo-column.column-1 { margin-top: -85px; }
+.photo-column.column-3 { margin-top: -40px; }
+.photo-backdrop[data-running=false] .photo-column-track { animation-play-state: paused; }
+.photo-paper-veil { position: absolute; inset: 0; background: radial-gradient(ellipse at center, #fbf8f1b3 15%, #fbf8f170 48%, #fbf8f105 100%); }
+@keyframes memories-up { from { transform: translateY(0); } to { transform: translateY(-50%); } }
+@keyframes memories-down { from { transform: translateY(-50%); } to { transform: translateY(0); } }
+.site-header nav button.photo-motion-control { position: relative; width: 40px; height: 40px; border: 1px solid var(--line); border-radius: 50%; padding: 0; background: #fffdf5bd; }
+.motion-badge { position: absolute; display: grid; place-items: center; right: 3px; bottom: 4px; width: 12px; height: 12px; border-radius: 50%; background: #fbf8f1; }
+.photo-motion-control[aria-pressed=true] { color: var(--rose); }
+/* A small paper album, with animated sheets and the originals kept intact. */
+.memories { padding-top: 92px; padding-bottom: 95px; }
+.memories-layout { width: min(940px, 100%); display: grid; grid-template-columns: 1fr 340px; align-items: center; gap: 80px; }
+.memories-note { text-align: left; min-width: 0; }
+.memories-note h2 { margin-top: 14px; font-size: clamp(48px, 5.7vw, 78px); }
+.memories-note p { font: 23px/1.35 'Cormorant Garamond', serif; margin: 23px 0 24px; }
+.memories-note .signature { display: block; font-size: 36px; }
+.album { width: 100%; min-width: 0; text-align: center; }
+.album-deck { position: relative; width: 100%; aspect-ratio: 3/4.15; isolation: isolate; touch-action: pan-y; }
+.album-deck::before, .album-deck::after { content: ''; position: absolute; inset: 0; border: 1px solid #d5c6b0; background: #fffdf5; box-shadow: 0 8px 24px #59452c14; pointer-events: none; }
+.album-deck::before { transform: rotate(-5deg); }
+.album-deck::after { transform: rotate(4deg); }
+.album-card { margin: 0; position: absolute; inset: 0; padding: 13px 13px 41px; background: #fffdf7; border: 1px solid #cbb99c; box-shadow: 0 10px 30px #59452c1a; transform-origin: 50% 90%; }
+.album-outgoing { z-index: 2; }
+.album-current { z-index: 3; }
+.album-card img { width: 100%; height: 100%; object-fit: contain; background: #eee7db; user-select: none; }
+.album-card figcaption { position: absolute; bottom: 10px; left: 8px; right: 8px; font: 20px/1.1 'Cormorant Garamond', serif; color: #896c45; }
+.album-controls { display: flex; align-items: center; justify-content: center; gap: 13px; margin-top: 23px; }
+.album-controls button { min-width: 44px; height: 44px; display: grid; place-items: center; background: #fffdf7e6; border: 1px solid #c9b28b; border-radius: 50%; color: #84623b; }
+.album-controls button:disabled { opacity: .5; }
+.album-controls .album-play { color: var(--rose); background: #f4e8e2; }
+.album-counter { min-width: 53px; font: 19px 'Cormorant Garamond', serif; color: #84623b; font-variant-numeric: tabular-nums; }
+.album-counter span { font-size: 14px; }
+.album-instruction { font-size: 11px; line-height: 1.5; margin: 9px auto 0; max-width: 300px; color: #75634f; }
+.album-ending-hint { font-size: 10px; line-height: 1.5; margin: 7px auto 0; color: #7a644c; }
+.ready-to-close-end .album-ending-hint { color: var(--rose); font-weight: 600; }
+.story-note { background: radial-gradient(ellipse, #fbf8f1f2 48%, #fbf8f100 85%); }
+@media (max-width: 700px) {
+  .photo-diagonals { gap: 13px; inset: -35% -35%; }
+  .photo-column { width: 155px; }
+  .photo-column:nth-child(n+4) { display: none; }
+  .photo-column-group { gap: 13px; padding-bottom: 13px; }
+  .photo-column img { border-width: 6px; }
+  .photo-paper-veil { background: radial-gradient(ellipse, #fbf8f1bf 15%, #fbf8f17a 55%, #fbf8f133); }
+  .memories { padding: 76px 25px 84px; }
+  .memories-layout { grid-template-columns: minmax(0,1fr); gap: 24px; justify-items: center; width: 100%; }
+  .memories-note { text-align: center; }
+  .memories-note .eyebrow { font-size: 8px; }
+  .memories-note h2 { font-size: 39px; line-height: 1.05; margin-top: 8px; }
+  .memories-note h2 br { display: none; }
+  .memories-note p { font-size: 19px; margin: 11px 0 0; }
+  .memories-note .signature { display: none; }
+  .album { width: min(268px, 100%); }
+  .album-controls { margin-top: 19px; gap: 11px; }
+  .album-card figcaption { font-size: 19px; }
+}
+@media (max-width: 700px) and (max-height: 740px) {
+  .memories-layout { gap: 17px; }
+  .memories-note h2 { font-size: 33px; }
+  .memories-note p { font-size: 17px; margin-top: 8px; }
+  .album { width: min(224px, 100%); }
+  .album-card { padding: 10px 10px 33px; }
+  .album-card figcaption { font-size: 17px; bottom: 8px; }
+  .album-controls { margin-top: 16px; }
+  .album-instruction { font-size: 10px; }
+}
+@media (max-width: 360px) {
+  .site-header nav button.quick-gift { width: 40px; padding: 0; }
+  .site-header nav button.quick-gift span { display: none; }
+  .site-header nav button { padding-inline: 6px; }
+  .site-header { padding-inline: 10px; gap: 5px; }
+}
+@media (max-height: 560px) { .memories { min-height: 600px; } .album { width: 224px; } }
+@media (prefers-reduced-motion: reduce) { .photo-column-track { animation: none; } .photo-backdrop { transition: none; } }

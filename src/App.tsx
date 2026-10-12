@@ -1,17 +1,23 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
-import type { FormEvent, ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import gsap from 'gsap';
-import { ArrowDown, ArrowLeft, ArrowRight, ArrowUp, CalendarDays, Check, Flower2, Heart, MapPin, Music2, VolumeX, X } from 'lucide-react';
+import { ArrowDown, ArrowLeft, ArrowRight, ArrowUp, CalendarDays, Check, Flower2, Heart, Images, Mail, MapPin, Music2, Pause, Play, VolumeX, X } from 'lucide-react';
 import { INVITACION as data } from './config';
 import { CoverCloseGesture } from './cover-gesture';
+import { PhotoAlbum } from './PhotoAlbum';
+import { PhotoBackdrop } from './PhotoBackdrop';
 
 const chapters = [
   { id: 'inicio', label: 'La invitación' },
   { id: 'nosotros', label: 'Nuestro amor' },
   { id: 'celebracion', label: 'La celebración' },
   { id: 'detalles', label: 'Los detalles' },
-  { id: 'confirmar', label: 'Tu presencia' },
+  { id: 'regalos', label: 'Un detalle con cariño' },
+  { id: 'recuerdos', label: 'Nuestros recuerdos' },
 ];
+const lastChapter = chapters.length - 1;
+const giftChapter = chapters.findIndex(chapter => chapter.id === 'regalos');
+const photoChapter = chapters.findIndex(chapter => chapter.id === 'recuerdos');
 const wreath = '/assets/corona-floral-v2.png';
 const dogs = '/assets/perritos-acuarela.png';
 const prefersReducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -147,27 +153,20 @@ function Details() {
     </div>
   </section>;
 }
-function RSVP({ replay }: { replay: () => void }) {
-  const [name, setName] = useState('');
-  const [people, setPeople] = useState('1');
-  const [answer, setAnswer] = useState('si');
-  const [error, setError] = useState(false);
-  const nameInput = useRef<HTMLInputElement>(null);
-  const submit = (e: FormEvent) => {
-    e.preventDefault();
-    if (!name.trim()) { setError(true); nameInput.current?.focus(); return; }
-    const message = answer === 'si' ? `¡Hola, Valeria y Gabriel! Soy ${name.trim()} y confirmo mi asistencia a su boda del 12 de diciembre de 2026. Asistiremos ${people} ${people === '1' ? 'persona' : 'personas'}. ¡Con mucho cariño!` : `¡Hola, Valeria y Gabriel! Soy ${name.trim()}. Gracias por la invitación. Esta vez no podré acompañarlos, pero les deseo todo lo mejor.`;
-    const number = data.whatsappNumero.replace(/\D/g, '');
-    window.open(`https://wa.me/${number}?text=${encodeURIComponent(message)}`, '_blank', 'noopener,noreferrer');
-  };
-  return <section className="chapter rsvp" id="confirmar" aria-label="Confirmar asistencia">
-    <img src={wreath} className="rsvp-floral" alt="" loading="lazy" />
-    <div className="rsvp-layout entrance"><div className="rsvp-note"><span className="eyebrow">EL MEJOR REGALO ES TENERTE CERCA</span><h2>¿Nos<br /> <i>acompañas?</i></h2><Ornament /><p>Nos encantará compartir este día contigo. Confirma si podrás acompañarnos.</p><span className="signature">Con todo nuestro cariño.</span><span className="rsvp-names">Valeria & Gabriel</span></div>
-      <form className="rsvp-form" onSubmit={submit} noValidate><label htmlFor="guest-name">Tu nombre</label><input ref={nameInput} id="guest-name" value={name} maxLength={80} autoComplete="name" placeholder="Nombre y apellido" aria-invalid={error} aria-describedby={error ? 'name-error' : undefined} onChange={e => { setName(e.target.value); setError(false); }} />{error && <span className="form-error" id="name-error" role="alert">Escribe tu nombre para continuar.</span>}
-        <fieldset><legend>¿Podrás acompañarnos?</legend><div className="answer-options"><label className={answer === 'si' ? 'choice selected' : 'choice'}><input type="radio" name="attendance" value="si" checked={answer === 'si'} onChange={() => setAnswer('si')} /><span>Sí, con mucho gusto</span></label><label className={answer === 'no' ? 'choice selected' : 'choice'}><input type="radio" name="attendance" value="no" checked={answer === 'no'} onChange={() => setAnswer('no')} /><span>No podré asistir</span></label></div></fieldset>
-        {answer === 'si' && <><label htmlFor="guest-people">Personas que asistirán</label><select id="guest-people" value={people} onChange={e => setPeople(e.target.value)}>{[1, 2, 3, 4, 5, 6].map(n => <option key={n} value={n}>{n} {n === 1 ? 'persona' : 'personas'}</option>)}</select></>}
-        <button className="button-primary" type="submit">{data.whatsappNumero ? 'Confirmar por WhatsApp' : 'Preparar mi confirmación'}<ArrowRight size={16} /></button><p className="form-footnote">{data.whatsappNumero ? 'Se abrirá WhatsApp con tu mensaje listo para enviar.' : 'Se abrirá WhatsApp para que elijas a Valeria o Gabriel y envíes tu mensaje.'}</p>
-      </form></div><div className="invitation-ending"><button className="replay" onClick={replay}>Cerrar la invitación <X size={14} /></button><p><span className="mouse-hint">O haz otro scroll hacia abajo para cerrar.</span><span className="touch-hint">O desliza una vez más hacia arriba para cerrar.</span></p></div>
+function Gifts({ next }: { next: () => void }) {
+  return <section className="chapter gifts" id="regalos" aria-labelledby="gifts-title">
+    <div className="gift-stationery entrance">
+      <FloralLayers />
+      <span className="eyebrow">UN DETALLE CON CARIÑO</span>
+      <div className="gift-envelope" aria-hidden="true"><Mail size={48} strokeWidth={.9} /><span className="gift-seal">V & G</span></div>
+      <h2 id="gifts-title">Lluvia de <i>sobres.</i></h2>
+      <Ornament />
+      <p className="gift-presence">Celebrar contigo es nuestro regalo más especial.</p>
+      <p className="gift-message">Si deseas acompañarnos con un detalle, al llegar podrás tomar un sobre y dejar la contribución que prefieras, con todo tu cariño.</p>
+      <p className="gift-thanks">Gracias por acompañarnos en este nuevo comienzo.</p>
+      <span className="signature">Valeria & Gabriel</span>
+    </div>
+    <div className="invitation-ending"><button className="replay" onClick={next}>Ver nuestros recuerdos <ArrowRight size={14} /></button></div>
   </section>;
 }
 export default function App() {
@@ -176,6 +175,9 @@ export default function App() {
   const [closing, setClosing] = useState(false);
   const [active, setActive] = useState(0);
   const [playing, setPlaying] = useState(false);
+  const [photoPaused, setPhotoPaused] = useState(prefersReducedMotion);
+  const [photosEnabled, setPhotosEnabled] = useState(false);
+  const [pageVisible, setPageVisible] = useState(() => !document.hidden);
   const mainRef = useRef<HTMLElement>(null);
   const audioRef = useRef<HTMLAudioElement>(null);
   const openingRef = useRef<HTMLDivElement>(null);
@@ -200,6 +202,15 @@ export default function App() {
     scrollTween.current = gsap.to(root, { scrollTop: top, duration: .75, ease: 'power2.inOut', onComplete: () => root.classList.remove('is-navigating'), onInterrupt: () => root.classList.remove('is-navigating') });
   }, []);
   navRef.current = navigate;
+  useEffect(() => {
+    const visibility = () => setPageVisible(!document.hidden);
+    const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const preference = () => { if (motion.matches) setPhotoPaused(true); };
+    document.addEventListener('visibilitychange', visibility);
+    motion.addEventListener('change', preference);
+    return () => { document.removeEventListener('visibilitychange', visibility); motion.removeEventListener('change', preference); };
+  }, []);
+  useEffect(() => { if (!showOpening && active > 0) setPhotosEnabled(true); }, [showOpening, active]);
   useEffect(() => {
     const root = mainRef.current;
     if (!root) return;
@@ -239,7 +250,7 @@ export default function App() {
       if (now - last > 180 || Math.sign(total) !== Math.sign(event.deltaY)) total = 0;
       last = now;
       total += event.deltaY * (event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? root.clientHeight : 1);
-      if (Math.abs(total) > 28) { const index = Math.max(0, Math.min(4, activeRef.current + Math.sign(total))); total = 0; gestureLock.current = now + 900; if (index !== activeRef.current) navRef.current(index); }
+      if (Math.abs(total) > 28) { const index = Math.max(0, Math.min(lastChapter, activeRef.current + Math.sign(total))); total = 0; gestureLock.current = now + 900; if (index !== activeRef.current) navRef.current(index); }
     };
     const keydown = (event: KeyboardEvent) => {
       if ((event.target as HTMLElement).closest('input, select, textarea, button, a, [role="tab"], [role="tabpanel"]') || event.altKey || event.ctrlKey || event.metaKey) return;
@@ -250,7 +261,7 @@ export default function App() {
       if (section && section.offsetHeight > root.clientHeight + 4 && !['Home', 'End'].includes(event.key)) return;
       event.preventDefault();
       const next = ['ArrowDown', 'PageDown'].includes(event.key) ? activeRef.current + 1 : activeRef.current - 1;
-      navigate(event.key === 'Home' ? 0 : event.key === 'End' ? 4 : Math.max(0, Math.min(4, next)));
+      navigate(event.key === 'Home' ? 0 : event.key === 'End' ? lastChapter : Math.max(0, Math.min(lastChapter, next)));
     };
     const touchstart = (event: TouchEvent) => {
       scrollTween.current?.kill();
@@ -333,9 +344,10 @@ export default function App() {
   return <div className="invitation">
     <audio ref={audioRef} src={data.musicaUrl} preload="none" loop onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} />
     <div className="experience" inert={showOpening}>
-      <header className="site-header"><button className="brand" aria-label="Volver al inicio" onClick={() => navigate(0)}>V<span>&</span>G</button><span className="header-date">12 DICIEMBRE 2026</span><nav aria-label="Accesos directos"><button onClick={() => navigate(2)}><MapPin size={14} /><span>El lugar</span></button><button className="quick-rsvp" onClick={() => navigate(4)}><Heart size={13} /><span>Confirmar</span></button><button className="music-control" onClick={() => void toggleMusic()} aria-label={playing ? 'Pausar música' : 'Activar música'} aria-pressed={playing}>{playing ? <Music2 size={17} /> : <VolumeX size={17} />}</button></nav></header>
-      <main ref={mainRef} className="chapters" tabIndex={-1} aria-label="Invitación de boda de Valeria y Gabriel"><Hero next={() => navigate(1)} close={close} /><Story /><Celebration /><Details /><RSVP replay={close} /></main>
-      <nav className="chapter-nav" aria-label="Secciones de la invitación"><span className="chapter-counter">0{active + 1}<span> / 05</span></span><div className="chapter-dots">{chapters.map((chapter, i) => <button key={chapter.id} aria-label={`Ir a ${chapter.label}`} aria-current={active === i ? 'step' : undefined} onClick={() => navigate(i)}><span /></button>)}</div><span className="chapter-label">{chapters[active].label}</span><div className="chapter-arrows"><button onClick={() => navigate(active - 1)} disabled={active === 0} aria-label="Pantalla anterior"><ArrowLeft size={17} /></button><button onClick={() => active === 4 ? close() : navigate(active + 1)} aria-label={active === 4 ? 'Cerrar la invitación' : 'Pantalla siguiente'}>{active === 4 ? <X size={17} /> : <ArrowRight size={17} />}</button></div></nav>
+      {photosEnabled && <PhotoBackdrop visible={!showOpening && active > 0} running={!showOpening && active > 0 && pageVisible && !photoPaused} />}
+      <header className="site-header"><button className="brand" aria-label="Volver al inicio" onClick={() => navigate(0)}>V<span>&</span>G</button><span className="header-date">12 DICIEMBRE 2026</span><nav aria-label="Accesos directos"><button onClick={() => navigate(2)}><MapPin size={14} /><span>El lugar</span></button><button className="quick-gift" onClick={() => navigate(giftChapter)}><Mail size={14} /><span>Un detalle</span></button>{active > 0 && <button className="photo-motion-control" onClick={() => setPhotoPaused(value => !value)} aria-label={photoPaused ? 'Reanudar movimiento de las fotografías' : 'Pausar movimiento de las fotografías'} aria-pressed={!photoPaused}><Images size={17} /><span className="motion-badge" aria-hidden="true">{photoPaused ? <Play size={8} /> : <Pause size={8} />}</span></button>}<button className="music-control" onClick={() => void toggleMusic()} aria-label={playing ? 'Pausar música' : 'Activar música'} aria-pressed={playing}>{playing ? <Music2 size={17} /> : <VolumeX size={17} />}</button></nav></header>
+      <main ref={mainRef} className="chapters" tabIndex={-1} aria-label="Invitación de boda de Valeria y Gabriel"><Hero next={() => navigate(1)} close={close} /><Story /><Celebration /><Details /><Gifts next={() => navigate(photoChapter)} /><PhotoAlbum active={!showOpening && active === photoChapter && pageVisible} paused={photoPaused} onPauseChange={setPhotoPaused} /></main>
+      <nav className="chapter-nav" aria-label="Secciones de la invitación"><span className="chapter-counter">0{active + 1}<span> / {String(chapters.length).padStart(2, '0')}</span></span><div className="chapter-dots">{chapters.map((chapter, i) => <button key={chapter.id} aria-label={`Ir a ${chapter.label}`} aria-current={active === i ? 'step' : undefined} onClick={() => navigate(i)}><span /></button>)}</div><span className="chapter-label">{chapters[active].label}</span><div className="chapter-arrows"><button onClick={() => navigate(active - 1)} disabled={active === 0} aria-label="Pantalla anterior"><ArrowLeft size={17} /></button><button onClick={() => active === lastChapter ? close() : navigate(active + 1)} aria-label={active === lastChapter ? 'Cerrar la invitación' : 'Pantalla siguiente'}>{active === lastChapter ? <X size={17} /> : <ArrowRight size={17} />}</button></div></nav>
     </div>
     <div ref={openingRef}><Opening onOpen={open} opening={opening} closing={closing} visible={showOpening} /></div>
   </div>;

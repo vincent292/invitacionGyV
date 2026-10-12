@@ -22,12 +22,9 @@
 .colors button[aria-pressed=true] { color: #342d26; box-shadow: 0 0 0 2px var(--ink); }
 .dress-panel p.color-name { font-size: 12px; line-height: 1.5; min-height: 18px; }
 .invitation-ending { display: grid; justify-items: center; gap: 5px; margin-top: 20px; text-align: center; }
-.invitation-ending .replay { position: static; transform: none; min-height: 44px; font-size: 12px; margin: 0; padding: 10px 17px; border: 1px solid var(--line); border-radius: 25px; background: #fffdf7; }
+.invitation-ending .replay { display: inline-flex; align-items: center; gap: 8px; position: static; transform: none; min-height: 44px; font-size: 12px; margin: 0; padding: 10px 17px; border: 1px solid var(--line); border-radius: 25px; background: #fffdf7; }
 .invitation-ending p { max-width: 310px; font-size: 10px; line-height: 1.5; color: #7a644c; }
 .ready-to-close-end .invitation-ending .replay { background: #f1e2df; border-color: var(--rose); }
-.rsvp-form>label, .rsvp-form legend { font-size: 12px; }
-.choice { font-size: 11px; line-height: 1.4; }
-.form-footnote { font-size: 11px; color: #75634f; }
 .site-header nav button { font-size: 11px; }
 .chapter-arrows button { width: 44px; height: 44px; }
 .chapter-dots button { width: 32px; height: 44px; }
@@ -48,7 +45,6 @@
   .timeline-row { min-height: 51px; }
   .timeline h3 { font-size: 20px; }
   .event-illustration { transform: scale(.8); }
-  .rsvp { align-content: center; }
   .invitation-ending { margin-top: 14px; }
 }
 @media (max-width: 360px) {
@@ -66,13 +62,5 @@
   .details .timeline-row { min-height: 44px; }
   .details .event-illustration { margin-block: -5px; }
   .dress-preview { margin-top: 8px; padding-block: 10px; }
-  .rsvp-note h2 { font-size: 35px; }
-  .rsvp-note .ornament { display: none; }
-  .rsvp-note p { max-width: 330px; margin-top: 12px; }
-  .rsvp { padding-top: 70px; padding-bottom: 75px; }
-  .rsvp-form { padding: 12px; gap: 6px; }
-  .rsvp-form>input, .rsvp-form>select { margin-bottom: 0; }
-  .rsvp-form legend { margin-bottom: 6px; }
-  .form-footnote { font-size: 10px; line-height: 1.4; }
   .invitation-ending { margin-top: 8px; }
 }
