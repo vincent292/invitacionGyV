@@ -9,7 +9,7 @@ export const INVITACION = {
   fechaLarga: 'Sábado, 12 de diciembre de 2026',
   horaInicio: '16:00',
   lugar: 'Villa Andalucía',
-  ubicacionUrl: 'https://qr.link/JikSqt', // Enlace leído del código QR del diseño entregado.
+  ubicacionUrl: 'https://maps.app.goo.gl/f9pzopjaPLZu7MTd9?g_st=iwb',// Enlace leído del código QR del diseño entregado.
   vestimenta: 'Formal primaveral',
   evitarColores: ['Blanco', 'Verde turquesa oscuro'],
   // Guarda la nueva canción en public/assets/ y escribe su ruta aquí.
